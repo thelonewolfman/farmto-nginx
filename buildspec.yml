@@ -1,0 +1,27 @@
+version: 0.2
+
+env:
+  variables:
+    ACCOUNT_ID: "658351718918"
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      # - $(aws ecr get-login --no-include-email --region ap-southeast-1)
+      - $(aws ecr get-login --no-include-email --region $(AWS_REGION))
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t "$ACCOUNT_ID.dkr.ecr.$(AWS_REGION).amazonaws.com/farmto-nginx" .
+      - docker tag "$ACCOUNT_ID.dkr.ecr.$(AWS_REGION).amazonaws.com/farmto-nginx" "$ACCOUNT_ID.dkr.ecr.$(AWS_REGION).amazonaws.com/farmto-nginx"
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push "$ACCOUNT_ID.dkr.ecr.$(AWS_REGION).amazonaws.com/farmto-nginx"
+      # - printf '[{"name":"farmto-api","imageUri":"754530951907.dkr.ecr.ap-southeast-1.amazonaws.com/farmto-api"}]' > imagedefinitions.json
+artifacts:
+  files:
+    - "**/*"
