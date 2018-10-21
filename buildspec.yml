@@ -1,9 +1,5 @@
 version: 0.2
 
-env:
-  variables:
-    ACCOUNT_ID: "658351718918"
-
 phases:
   pre_build:
     commands:
@@ -13,13 +9,13 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t 658351718918.dkr.ecr.$(AWS_REGION).amazonaws.com/farmto-nginx .
-      - docker tag 658351718918.dkr.ecr.$(AWS_REGION).amazonaws.com/farmto-nginx 658351718918.dkr.ecr.$(AWS_REGION).amazonaws.com/farmto-nginx
+      - docker build -t 658351718918.dkr.ecr.ap-southeast-1.amazonaws.com/farmto-nginx .
+      - docker tag 658351718918.dkr.ecr.ap-southeast-1.amazonaws.com/farmto-nginx 658351718918.dkr.ecr.ap-southeast-1.amazonaws.com/farmto-nginx
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 658351718918.dkr.ecr.$(AWS_REGION).amazonaws.com/farmto-nginx
+      - docker push 658351718918.dkr.ecr.ap-southeast-1.amazonaws.com/farmto-nginx
       # - printf '[{"name":"farmto-api","imageUri":"754530951907.dkr.ecr.ap-southeast-1.amazonaws.com/farmto-api"}]' > imagedefinitions.json
 artifacts:
   files:
