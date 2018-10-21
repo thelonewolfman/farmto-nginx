@@ -8,8 +8,7 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      # - $(aws ecr get-login --no-include-email --region ap-southeast-1)
-      - $(aws ecr get-login --no-include-email --region $AWS_REGION)
+      - $(aws ecr get-login --no-include-email --region ap-southeast-1)
   build:
     commands:
       - echo Build started on `date`
